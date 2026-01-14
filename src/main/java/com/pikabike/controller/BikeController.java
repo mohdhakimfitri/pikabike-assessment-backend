@@ -54,9 +54,11 @@ public class BikeController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBike(@PathVariable Long id) {
+        // Check if bike exists before attempting deletion
         if (!bikeRepository.existsById(id)) {
             throw new RuntimeException("Bike tidak dijumpai dengan ID: " + id);
         }
+        // Perform soft delete or hard delete
         bikeRepository.deleteById(id);
         return ResponseEntity.noContent().build();
     }
